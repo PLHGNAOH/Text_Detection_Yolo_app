@@ -7,7 +7,7 @@ from ultralytics import YOLO
 # =========================
 # Config
 # =========================
-MODEL_PATH = "best.pt"   # nếu model nằm cùng cấp app.py
+MODEL_PATH = "best.pt"
 
 st.set_page_config(
     page_title="OCR Text Detection Demo",
@@ -48,20 +48,17 @@ if uploaded_file is not None:
 
     with col1:
         st.subheader("Original Image")
-        st.image(img_np, use_container_width=True)
+        st.image(img_np, use_column_width=True)
 
     if run_button:
         with st.spinner("Running inference..."):
             results = model(img_np, verbose=False)
-
-            # Vẽ bbox bằng built-in method
             annotated_img = results[0].plot()
-
             predictions = json.loads(results[0].to_json())
 
         with col2:
             st.subheader("Detection Result")
-            st.image(annotated_img, use_container_width=True)
+            st.image(annotated_img, use_column_width=True)
 
             st.subheader("Raw Predictions (JSON)")
             st.json(predictions)
